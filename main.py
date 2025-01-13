@@ -20,7 +20,8 @@ if "datos_basicos" not in st.session_state:
 
 # Cargar clientes desde el CSV
 try:
-    clientes_csv_path = "C:\\Users\\Federico Gravina\\Downloads\\cuenta_razon_social.csv"
+    clientes_csv_path = "cuenta_razon_social.csv"
+
     df_clientes = pd.read_csv(clientes_csv_path, encoding="latin1", header=None, names=["SK_CUE_Cuenta", "VC_CUE_Razon_Social"])
     opciones_clientes = {row["SK_CUE_Cuenta"]: f'{row["SK_CUE_Cuenta"]} - {row["VC_CUE_Razon_Social"]}' for _, row in df_clientes.iterrows()}
 except Exception as e:
@@ -29,7 +30,7 @@ except Exception as e:
 
 # Cargar lista de productos desde el CSV
 try:
-    productos_csv_path = "C:\\Users\\Federico Gravina\\Downloads\\lista_productos.csv"
+    productos_csv_path = "lista_productos.csv"
     df_productos = pd.read_csv(productos_csv_path, encoding="utf-8-sig")
     df_productos.columns = df_productos.columns.str.strip()
     df_productos["items_SK_PRD_Producto"] = df_productos["items_SK_PRD_Producto"].astype(str)
@@ -51,7 +52,7 @@ sucursales = [
 
 # Cargar el DataFrame de entrenamiento
 try:
-    df_entrenamiento_path = "C:/Users/Federico Gravina/Desktop/modelo final/df_6_enero_entrenamiento_binario_2.csv"
+    df_entrenamiento_path = "df_6_enero_entrenamiento_binario_2.csv"
     df_entrenamiento = pd.read_csv(df_entrenamiento_path)
     st.success("Datos de entrenamiento cargados correctamente.")
 except Exception as e:
