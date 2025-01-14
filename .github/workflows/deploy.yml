@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main  # Desplegar cuando se haga un push a la rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup environment
+        run: |
+          echo "Cargando credenciales..."
+          echo "[credentials]" > config.toml
+          echo "user = '${{ secrets.USER }}'" >> config.toml
+          echo "password = '${{ secrets.PASSWORD }}'" >> config.toml
+
+      - name: Deploy application
+        run: |
+          echo "Desplegando usando las credenciales:"
+          cat config.toml  # Solo para depuración, quítalo en producción
+          ssh "${{ secrets.USER }}"@example.com << EOF
+            echo "Iniciando despliegue..."
+            ./deploy_script.sh
+            echo "Despliegue completado."
+          EOF
